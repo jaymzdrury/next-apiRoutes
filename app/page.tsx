@@ -69,24 +69,20 @@ export default async function Home(): Promise<JSX.Element> {
 
   const data = await getData()
   const randomNumber = Math.floor(Math.random()*1000)
+  const post = {name: `New Name ${randomNumber}`, id: (randomNumber).toString()}
 
   return (
     <main>
-      {data 
+      {
+      data 
       ? 
       data.map(d => 
         <FormField key={d.id} func={deleteData} type="Delete" data={d} />
       ) 
       : 
-      undefined}
-      <FormField 
-        func={postData} 
-        type="Post" 
-        data={{
-          id: (randomNumber).toString(), 
-          name: `'New Name ${randomNumber}`
-        }} 
-      />
+      undefined
+      }
+      <FormField func={postData} type="Post" data={post} />
     </main>
   )
   
