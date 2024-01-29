@@ -62,7 +62,6 @@ export async function DELETE (request: NextRequest, {params}: Params){
     console.log(cookies().get('theme'))
 
     const index = data.findIndex(d => d.id === params.id)
-    const deletedData = data[index]
     data.splice(index,1)
 
     return NextResponse.json(data, {
