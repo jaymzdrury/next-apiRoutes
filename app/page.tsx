@@ -1,69 +1,13 @@
 import { Metadata } from "next";
-import { revalidatePath } from 'next/cache'
-import { Data } from "./api/route";
-
-const url = process.env.URL
+import { deleteData, postData } from "@/actions/actions";
+import { getData } from "@/utils/fetchRequest";
+import FormField from "@/components/form-field";
 
 export const metadata = (): Metadata => {
   return {
       title: 'Main Page',
   };
 };
-
-async function getData(){
-  const res = await fetch(`${url}/api`)
-  const data: Data[] = await res.json()
-
-  if(!res.ok) throw new Error()
-
-  return data
-}
-
-async function postData(formData: FormData){
-  'use server'
-
-  const res = await fetch(`${url}/api`, {
-    method: 'POST',
-    body: JSON.stringify({name: formData.get('name'), id: formData.get('id')})
-  })
-  const data: Data = await res.json()
-
-  if(!res.ok) throw new Error()
-
-  revalidatePath('/')
-  console.log(data)
-}
-
-async function deleteData(formData: FormData){
-  'use server'
-
-  const res = await fetch(`${url}/api/${formData.get('id')}`, { method: 'DELETE' })
-  const data: Data[] = await res.json()
-
-  if(!res.ok) throw new Error()
-
-  revalidatePath('/')
-  console.log(data)
-}
-
-function FormField(
-  {func, type, data}
-  :
-  {func: (formData: FormData) => void,
-    type: string,
-    data: Data
-  }
-): JSX.Element {
-
-  return (
-    <form action={func}>
-      <input readOnly style={{display: 'none'}} name='id' type="text" value={data.id} />
-      <input readOnly name='name' type="text" value={data.name} />
-      <button type="submit">{type}</button>
-    </form> 
-  )
-  
-}
 
 export default async function Home(): Promise<JSX.Element> {
 

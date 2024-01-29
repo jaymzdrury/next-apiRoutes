@@ -3,11 +3,6 @@ export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from "next/server"
 import { headers, cookies } from "next/headers"
 
-export interface Data {
-    id: string,
-    name: string
-}
-
 export const data: Data[] = [
     {name: 'Name', id: '0'},
     {name: 'Name 2', id: '1'}
