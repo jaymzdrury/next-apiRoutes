@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import { inter } from "@/font/font";
 
 export const metadata: Metadata = {
   title: "API Routes",
   description: "This is about API Routes",
   icons: {
-    icon: '/img/favicon.ico'
-  }
+    icon: "/img/favicon.ico",
+  },
 };
 
 export default function RootLayout({
