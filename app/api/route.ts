@@ -1,65 +1,33 @@
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
-import { NextRequest, NextResponse } from "next/server"
-import { headers, cookies } from "next/headers"
+import { NextRequest, NextResponse } from "next/server";
+import { headers, cookies } from "next/headers";
 
-export const data: Data[] = [
-    {name: 'Name', id: '0'},
-    {name: 'Name 2', id: '1'}
-]
+export const data = [{ name: "Name" }, { name: "Name 2" }];
 
 export async function GET(): Promise<NextResponse<Data[]>> {
-    const headersFunc = headers()
-    const cookiesFunc = cookies()
+  const headersFunc = headers();
+  const cookiesFunc = cookies();
 
-    console.log(headersFunc.get('Authorization'))
-    cookiesFunc.set('theme','dark')
-    console.log(cookies().get('theme'))
-
-    return NextResponse.json(data, {
-        headers: {
-            "Content-Type": "application/json"
-        },
-        status: 200
-    })
+  return NextResponse.json(data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    status: 200,
+  });
 }
 
-//GET Query '/api?query=[value]'
-// export async function GET(request: NextRequest){
-//     const headersFunc = headers()
-//     const cookiesFunc = cookies()
-    
-//     console.log(headersFunc.get('Authorization'))
-//     cookiesFunc.set('theme','dark')
-//     console.log(cookies().get('theme'))
+export async function POST(request: NextRequest) {
+  const headersFunc = headers();
+  const cookiesFunc = cookies();
 
-//     const searchParams = request.nextUrl.searchParams
-//     const q = searchParams.get('query')
-//     const filteredData = q ? data.filter(d => d.name.includes(q)) : data
+  const postData = await request.json();
+  data.push(postData);
 
-//     return NextResponse.json(filteredData, {
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         status: 200
-//     })
-// }
-
-export async function POST(request: NextRequest){
-    const headersFunc = headers()
-    const cookiesFunc = cookies()
-    
-    console.log(headersFunc.get('Authorization'))
-    cookiesFunc.set('theme','dark')
-    console.log(cookies().get('theme'))
-
-    const postData = await request.json()
-    data.push(postData)
-
-    return NextResponse.json(postData, {
-        headers: {
-            "Content-Type": "application/json"
-        },
-        status: 201
-    })
+  return NextResponse.json(postData, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    status: 201,
+  });
 }

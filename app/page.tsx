@@ -1,33 +1,28 @@
 import { Metadata } from "next";
-import { deleteData, postData } from "@/actions/actions";
-import { getData } from "@/utils/fetchRequest";
+import { deleteData, postData, getData } from "@/actions/actions";
 import FormField from "@/components/form-field";
 
 export const metadata = (): Metadata => {
   return {
-      title: 'Main Page',
+    title: "Main Page",
   };
 };
 
 export default async function Home(): Promise<JSX.Element> {
-
-  const data = await getData()
-  const randomNumber = Math.floor(Math.random()*1000)
-  const post = {name: `New Name ${randomNumber}`, id: (randomNumber).toString()}
+  const data: Data[] = await getData();
 
   return (
     <main>
-      {
-      data 
-      ? 
-      data.map(d => 
-        <FormField key={d.id} func={deleteData} type="Delete" data={d} />
-      ) 
-      : 
-      undefined
-      }
-      <FormField func={postData} type="Post" data={post} />
+      {data
+        ? data.map((d) => (
+            <FormField
+              key={d.name}
+              func={deleteData.bind(null, d.name)}
+              data={d}
+            />
+          ))
+        : undefined}
+      <FormField func={postData} />
     </main>
-  )
-  
+  );
 }
