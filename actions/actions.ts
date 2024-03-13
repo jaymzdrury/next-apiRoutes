@@ -1,6 +1,6 @@
 "use server";
 import { get, post, remove } from "@/lib/db";
-import { Schema } from "@/lib/schema";
+import { dataSchema } from "@/types";
 import { revalidateTag } from "next/cache";
 
 export async function getData() {
@@ -12,7 +12,7 @@ export async function getData() {
 export async function postData(formData: FormData) {
   const { name } = Object.fromEntries(formData);
 
-  const { success } = Schema.safeParse({ name });
+  const { success } = dataSchema.safeParse({ name });
 
   if (!success) return { error: "invalid" };
 
@@ -24,7 +24,7 @@ export async function postData(formData: FormData) {
 }
 
 export async function deleteData(id: string) {
-  const { success } = Schema.safeParse({ name: id });
+  const { success } = dataSchema.safeParse({ name: id });
 
   if (!success) return { error: "invalid" };
 

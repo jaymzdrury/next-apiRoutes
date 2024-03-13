@@ -1,3 +1,5 @@
+import { Data } from "@/types";
+
 export default function FormField({
   func,
   data,

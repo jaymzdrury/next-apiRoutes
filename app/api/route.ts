@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
 import { headers, cookies } from "next/headers";
+import { Data } from "@/types";
 
 export const data = [{ name: "Name" }, { name: "Name 2" }];
 

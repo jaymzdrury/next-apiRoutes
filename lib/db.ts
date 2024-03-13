@@ -1,10 +1,12 @@
-const url = `${process.env.URL}/api`;
+import { Data, envSchema } from "@/types";
+
+const url = `${envSchema.URL}/api`;
 
 export async function get() {
   try {
     const res = await fetch(url, { next: { tags: ["data"] } });
     const data = await res.json();
-    return { error: !res.ok ? data.message : null, data };
+    return { error: !res.ok ? data.message : null, data: data as Data[] };
   } catch (error) {
     return { error: "Failed to create" };
   }

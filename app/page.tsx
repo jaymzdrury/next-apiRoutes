@@ -9,7 +9,7 @@ export const metadata = (): Metadata => {
 };
 
 export default async function Home(): Promise<JSX.Element> {
-  const data: Data[] = await getData();
+  const data = await getData();
 
   return (
     <main>
